@@ -23,7 +23,6 @@ const HotelSchema = new mongoose.Schema({
   },
   photos: {
     type: [String],
-    required: true,
   },
   desc: {
     type: String,
@@ -46,6 +45,10 @@ const HotelSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  title: {
+    type: String,
+    required: true,
+  },
 });
 
-export default mongoose.model("Hotel");
+export default mongoose.model("Hotel", HotelSchema);
