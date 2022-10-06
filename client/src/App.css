@@ -1,0 +1,43 @@
+:root {
+  --appBlue: #003173;
+  --gray: #9c9c9c;
+  --orange: #f48915;
+  --darkGrey: #464d53;
+  --caloryCard: #656565;
+  --planCard: linear-gradient(210.41deg, #fa5042 1.14%, #ffa739 100.75%);
+  --appColor: #3c3f45;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Raleway", sans-serif;
+}
+.btn {
+  border: none;
+  outline: none;
+  padding: 5px 10px;
+  border-radius: 2px;
+  color: var(--appBlue);
+  font-family: "Raleway", sans-serif;
+  cursor: pointer;
+  font-weight: 500;
+  box-shadow: 0 1px 2px 0 rgb(35 57 66 / 21%);
+  -webkit-box-shadow: 0 1px 2px 0 rgb(35 57 66 / 21%);
+  -moz-box-shadow: 0 1px 2px 0 rgb(35 57 66 / 21%);
+}
+
+.n-right {
+  display: flex;
+  gap: 1rem;
+}
+
+.p-relative {
+  position: relative;
+}
+.p-absolute {
+  position: absolute;
+}
+.pointer {
+  cursor: pointer;
+}

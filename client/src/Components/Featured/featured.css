@@ -1,0 +1,50 @@
+.featured {
+  width: 100%;
+  max-width: 1048px;
+  display: flex;
+  gap: 2.5%;
+  cursor: pointer;
+}
+.featured-item {
+  width: 31.5%;
+  position: relative;
+  height: 17rem;
+  border-radius: 10px;
+}
+.featured-item > img {
+  height: 17rem;
+  max-width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.featured-item > img ::before {
+  height: 17rem;
+  width: 100%;
+  background: red;
+}
+.f-info-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px;
+  background: linear-gradient(
+    0deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(12, 12, 14, 0.6671043417366946) 73%,
+    rgba(0, 212, 255, 0) 100%
+  );
+  position: absolute;
+  bottom: 0rem;
+  width: 94%;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.f-info-container > :nth-child(1) {
+  font-weight: bold;
+  font-size: 2.5rem;
+}
+
+.f-info-container > :nth-child(2) {
+  font-size: 1.5rem;
+  display: flex;
+}

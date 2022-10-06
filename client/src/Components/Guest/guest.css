@@ -1,0 +1,40 @@
+.guest {
+  width: 100%;
+  display: flex;
+  max-width: 1048px;
+  gap: 1rem;
+}
+.guest-item {
+  width: 20%;
+}
+
+.guest-item > img {
+  max-width: 100%;
+  height: 14rem;
+  object-fit: cover;
+}
+
+.guest-item > :nth-child(2) {
+  font-size: 18px;
+  display: block;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+.guest-item > :nth-child(3) {
+  display: block;
+  font-weight: bold;
+  color: var(--appBlue);
+  margin-bottom: 10px;
+}
+.guest-item > :nth-child(4) {
+  font-size: 14px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.guest-item > span > button {
+  font-weight: bold;
+  color: #fff;
+  background: var(--appBlue);
+  box-shadow: 0 1px 2px 0 rgb(35 57 66 / 21%);
+}

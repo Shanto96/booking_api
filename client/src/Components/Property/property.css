@@ -1,0 +1,26 @@
+.property {
+  display: flex;
+  width: 100%;
+  max-width: 1048px;
+  gap: 1rem;
+}
+
+.property-item {
+  width: 20%;
+}
+
+.property-item > img {
+  height: 14rem;
+  max-width: 100%;
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.property-item > :nth-child(2) {
+  font-size: 1.5rem;
+  font-weight: 400;
+  display: block;
+}
+.property-item > :nth-child(3) {
+  font-size: 1rem;
+}

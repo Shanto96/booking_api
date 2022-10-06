@@ -1,0 +1,15 @@
+.nav {
+  background: var(--appBlue);
+  padding: 2rem;
+  display: flex;
+  color: #fff;
+  justify-content: space-between;
+  min-width: 1048px;
+}
+.logo {
+  font-weight: bold;
+  font-size: 2rem;
+}
+.blue {
+  background: var(--appBlue);
+}

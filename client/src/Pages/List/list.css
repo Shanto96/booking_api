@@ -1,0 +1,94 @@
+.list-container {
+  display: flex;
+  width: 100%;
+  max-width: 1024px;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+.sidebar {
+  background: #ffb029;
+  height: fit-content;
+  flex: 1;
+  padding: 1rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.s-heading {
+  font-size: 1.5rem !important;
+}
+
+.sidebar span {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.sidebar input {
+  padding: 5px 10px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  border-radius: 4px;
+}
+
+.s-date {
+  background: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-weight: 400;
+  font-size: 1rem;
+}
+.option-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.option-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 5px;
+  border-bottom: 1px dotted rgba(128, 128, 128, 0.384);
+}
+
+.option-item input {
+  width: 3rem;
+}
+
+.sidebar-btn {
+  background: var(--appBlue);
+  color: #fff;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.hotel-list {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: scroll;
+  height: 40rem;
+  scrollbar-width: thin;
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #bec4c4;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
