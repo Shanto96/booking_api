@@ -49,11 +49,10 @@
   justify-content: space-between;
   padding: 0.5rem 2rem;
   align-items: center;
-  width: 80%;
+  width: 94%;
   position: absolute;
   bottom: -2rem;
   border-radius: 5px;
-  left: 10%;
   color: rgb(179, 179, 179);
 }
 .date {
