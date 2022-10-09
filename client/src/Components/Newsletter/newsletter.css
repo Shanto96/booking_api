@@ -11,7 +11,8 @@
   font-size: 1.5rem;
 }
 
-.newsletter-form-container {
+.newsletter-form-container,
+form {
   margin-top: 2rem;
   display: flex;
   gap: 1rem;

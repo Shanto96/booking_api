@@ -2,6 +2,8 @@ import React from "react";
 import "./guest.css";
 import GuestRoom from "../../assets/homeGuest.jpg";
 import useFetch from "../../hooks/useFetch";
+import emailjs from "@emailjs/browser";
+
 function Guest() {
   const { data, loading, error } = useFetch(
     "/hotel/find?featured=true&limit=5"
