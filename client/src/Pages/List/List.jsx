@@ -10,6 +10,7 @@ import { format } from "date-fns";
 import { BsCalendar3 } from "react-icons/bs";
 import SearchItem from "../../Components/SearchItem/SearchItem";
 import { SearchContext } from "../../context/SearchContext";
+import useFetch from "../../hooks/useFetch";
 
 function List() {
   const [openDate, setOpenDate] = useState(false);
@@ -21,6 +22,16 @@ function List() {
     },
   ]);
   const { city, dates, options } = useContext(SearchContext);
+  const [min, setMin] = useState(null);
+  const [max, setMax] = useState(null);
+  const [destination, setDestination] = useState(city);
+
+  const { data, loading, error, reFetch } = useFetch(
+    `/hotel/find?city=${destination.toLowerCase()}&min=${min || 0}&max=${
+      max || 999
+    }`
+  );
+  console.log(data);
   return (
     <>
       <Nav />
@@ -34,7 +45,14 @@ function List() {
           <div className="sidebar">
             <span className="heading s-heading">Search</span>
             <span>Destination</span>
-            <input type="text" placeholder="Madrid" value={city} />
+            <input
+              type="text"
+              placeholder="Madrid"
+              value={destination}
+              onChange={(e) => {
+                setDestination(e.target.value);
+              }}
+            />
             <span>Check In Date</span>
             <div
               className="s-date pointer"
@@ -60,11 +78,11 @@ function List() {
             <div className="option-container">
               <div className="option-item">
                 <span>Min Price(Per Night)</span>
-                <input type="number" />
+                <input type="number" onChange={(e) => setMin(e.target.value)} />
               </div>
               <div className="option-item">
                 <span>Max Price(Per Night)</span>
-                <input type="number" />
+                <input type="number" onChange={(e) => setMax(e.target.value)} />
               </div>
               <div className="option-item">
                 <span>Adult</span>
@@ -82,20 +100,11 @@ function List() {
             </div>
           </div>
           <div className="hotel-list">
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
+            {loading ? (
+              <p>Loading</p>
+            ) : (
+              data?.map((hotel) => <SearchItem hotel={hotel} />)
+            )}
           </div>
         </div>
       </div>
