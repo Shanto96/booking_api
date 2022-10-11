@@ -16,7 +16,15 @@ import {
   MdOutlineArrowForwardIos,
   MdCancel,
 } from "react-icons/md";
+import { useParams } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
+
 function Single() {
+  const params = useParams();
+  const { loading, data, error, reFetch } = useFetch(
+    `/hotel/find/${params.id}`
+  );
+  console.log(data);
   const photos = [Room1, Room2, Room3, Room4, Room5, Family];
   const [photoIndex, setPhotoIndex] = useState(0);
   const [openSlider, setOpenSlider] = useState(false);
@@ -32,12 +40,13 @@ function Single() {
       <div className="container">
         <div className="s-top">
           <div className="t-left">
-            <span>Tower Street Apartments</span>
+            <span>{data?.name}</span>
             <span>
-              <MdLocationPin /> 7079 S Jordan Rd,Centennial,Colorado, USA
+              <MdLocationPin /> {data?.address}
             </span>
             <span>
-              Book a stay over $114 at this property and get a free airport taxi
+              Book a stay over ${data?.cheapestPrice} at this property and get a
+              free airport taxi
             </span>
           </div>
           <div className="t-right">
@@ -124,17 +133,8 @@ function Single() {
         </div>
         <div className="info">
           <div className="content">
-            <span>Stay in the heart of Colorado</span>
-            <span>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe
-              reiciendis, culpa ea optio fugit vel eius dolorum tempora
-              blanditiis officiis rem excepturi recusandae architecto, illo
-              reprehenderit. Cupiditate dolorem, vel facilis sit nam natus
-              magnam, cumque ea voluptatum debitis neque, sunt a magni incidunt
-              unde in. Veritatis nulla expedita pariatur a quasi similique
-              blanditiis? Lorem ipsum dolor sit amet consectetur adipisicing
-              elit. Laboriosam, dolores.
-            </span>
+            <span>{data?.title}</span>
+            <span>{data?.desc}</span>
           </div>
           <div className="price">
             <span>Perfect for a 9-night stay!</span>

@@ -1,8 +1,15 @@
 import React from "react";
 import "./searchItem.css";
 import Hotel from "../../assets/hotelRoom.jpg";
+import { Link, useParams } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
 
 function SearchItem(hotel) {
+  const params = useParams();
+  const { loading, data, error, reFetch } = useFetch(
+    `/hotel/find/$(params.id)`
+  );
+  console.log(data);
   return (
     <div className="src-item pointer">
       <div className="i-left">
@@ -26,7 +33,14 @@ function SearchItem(hotel) {
         <div className="pricing">
           <span>$ {hotel?.hotel?.cheapestPrice} </span>
           <span>Includes taxes and fees</span>
-          <button className="">See Availability</button>
+          <button className="">
+            <Link
+              to={`/hotel/${hotel?.hotel?._id}`}
+              style={{ color: "inherit", textDocoration: "none" }}
+            >
+              See Availability
+            </Link>{" "}
+          </button>
         </div>
       </div>
     </div>
