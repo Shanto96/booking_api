@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Nav from "../../Components/Nav/Nav";
 import Menu from "../../Components/Menu/Menu";
 import Room1 from "../../assets/singleRoom1.jpg";
@@ -18,13 +18,21 @@ import {
 } from "react-icons/md";
 import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
+import { SearchContext } from "../../context/SearchContext";
 
 function Single() {
   const params = useParams();
   const { loading, data, error, reFetch } = useFetch(
     `/hotel/find/${params.id}`
   );
-  console.log(data);
+  const { dates } = useContext(SearchContext);
+  const MILISECONDS_PER_DAY = 1000 * 24 * 60 * 60;
+  const dayDifferent = (date1, date2) => {
+    const timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    const dateDiff = Math.ceil(timeDiff / MILISECONDS_PER_DAY);
+    return dateDiff;
+  };
+  const days = dayDifferent(dates[0].endDate, dates[0].startDate);
   const photos = [Room1, Room2, Room3, Room4, Room5, Family];
   const [photoIndex, setPhotoIndex] = useState(0);
   const [openSlider, setOpenSlider] = useState(false);
@@ -137,13 +145,13 @@ function Single() {
             <span>{data?.desc}</span>
           </div>
           <div className="price">
-            <span>Perfect for a 9-night stay!</span>
+            <span>Perfect for a {days}-night stay!</span>
             <span>
               Located in the real heart of Colorado, this property has an
               excellent location score of 9.81!
             </span>
             <span>
-              <span>$945</span>(9 nights)
+              <span>{days * data?.cheapestPrice}</span>({days} nights)
             </span>
             <button className="btn s-btn">Reserve or Book Now!</button>
           </div>
