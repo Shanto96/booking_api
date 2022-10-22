@@ -43,12 +43,13 @@ function Header() {
   };
   const navigate = useNavigate();
   const handleSearch = () => {
-    console.log("search called");
-    dispatch({
-      type: "NEW_SEARCH",
-      payload: { city: destination, dates: date, options: option },
-    });
-    navigate("/hotels");
+    if (destination.length > 0) {
+      dispatch({
+        type: "NEW_SEARCH",
+        payload: { city: destination, dates: date, options: option },
+      });
+      navigate("/hotels");
+    }
   };
 
   const { dispatch } = useContext(SearchContext);
@@ -63,106 +64,116 @@ function Header() {
             with a free booking account
           </span>
           <button className="btn h-btn">Sign in / Register</button>
-
-          <div className="form-container">
-            <div>
-              <FaBed />
-              <input
-                type="text"
-                placeholder={"Where are you going?"}
-                onChange={(e) => setDestination(e.target.value)}
-              />
-            </div>
-            <div className="p-relative range-container">
-              <span onClick={() => setOpenDate(!openDate)} className="pointer">
-                {" "}
-                <BsCalendar3 />
-                {`${format(date[0].startDate, "dd-MM-yyyy")} To ${format(
-                  date[0].endDate,
-                  "dd-MM-yyyy"
-                )} `}{" "}
-              </span>
-              {openDate && (
-                <DateRange
-                  editableDateInputs={true}
-                  onChange={(item) => setDate([item.selection])}
-                  moveRangeOnFirstSelection={false}
-                  ranges={date}
-                  className="date"
+          <form>
+            <div className="form-container">
+              <div>
+                <FaBed />
+                <input
+                  type="text"
+                  placeholder={"Where are you going?"}
+                  onChange={(e) => setDestination(e.target.value)}
+                  required
                 />
-              )}
-            </div>
-            <div className="p-relative range-container">
-              <span
-                onClick={() => setOptionOpened(!optionOpened)}
-                className="pointer "
+              </div>
+              <div className="p-relative range-container">
+                <span
+                  onClick={() => setOpenDate(!openDate)}
+                  className="pointer"
+                >
+                  {" "}
+                  <BsCalendar3 />
+                  {`${format(date[0].startDate, "dd-MM-yyyy")} To ${format(
+                    date[0].endDate,
+                    "dd-MM-yyyy"
+                  )} `}{" "}
+                </span>
+                {openDate && (
+                  <DateRange
+                    editableDateInputs={true}
+                    onChange={(item) => setDate([item.selection])}
+                    moveRangeOnFirstSelection={false}
+                    ranges={date}
+                    className="date"
+                  />
+                )}
+              </div>
+              <div className="p-relative range-container">
+                <span
+                  onClick={() => setOptionOpened(!optionOpened)}
+                  className="pointer "
+                >
+                  <FaUserAlt />
+                  {option.adult} Person {option.child} Children {option.room}{" "}
+                  Bed
+                </span>
+                {optionOpened && (
+                  <div className="options">
+                    <div className="optionItem">
+                      Adult
+                      <div className="btn-container">
+                        <button
+                          className="btn option-btn"
+                          onClick={(e) => handleOption(e, "adult", "i")}
+                        >
+                          +
+                        </button>
+                        {option.adult}
+                        <button
+                          className="btn option-btn"
+                          onClick={(e) => handleOption(e, "adult", "d")}
+                        >
+                          -
+                        </button>
+                      </div>
+                    </div>
+                    <div className="optionItem">
+                      Child
+                      <div className="btn-container">
+                        <button
+                          className="btn option-btn"
+                          onClick={(e) => handleOption(e, "child", "i")}
+                        >
+                          +
+                        </button>
+                        {option.child}
+                        <button
+                          className="btn option-btn"
+                          onClick={(e) => handleOption(e, "child", "d")}
+                        >
+                          -
+                        </button>
+                      </div>
+                    </div>
+                    <div className="optionItem">
+                      Room
+                      <div className="btn-container">
+                        <button
+                          className="btn option-btn"
+                          onClick={(e) => handleOption(e, "room", "i")}
+                        >
+                          +
+                        </button>
+                        {option.room}
+                        <button
+                          className="btn option-btn"
+                          onClick={(e) => handleOption(e, "room", "d")}
+                        >
+                          -
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+              <button
+                className="btn s-btn"
+                type="submit"
+                onClick={(e) => handleSearch()}
               >
-                <FaUserAlt />
-                {option.adult} Person {option.child} Children {option.room} Bed
-              </span>
-              {optionOpened && (
-                <div className="options">
-                  <div className="optionItem">
-                    Adult
-                    <div className="btn-container">
-                      <button
-                        className="btn option-btn"
-                        onClick={(e) => handleOption(e, "adult", "i")}
-                      >
-                        +
-                      </button>
-                      {option.adult}
-                      <button
-                        className="btn option-btn"
-                        onClick={(e) => handleOption(e, "adult", "d")}
-                      >
-                        -
-                      </button>
-                    </div>
-                  </div>
-                  <div className="optionItem">
-                    Child
-                    <div className="btn-container">
-                      <button
-                        className="btn option-btn"
-                        onClick={(e) => handleOption(e, "child", "i")}
-                      >
-                        +
-                      </button>
-                      {option.child}
-                      <button
-                        className="btn option-btn"
-                        onClick={(e) => handleOption(e, "child", "d")}
-                      >
-                        -
-                      </button>
-                    </div>
-                  </div>
-                  <div className="optionItem">
-                    Room
-                    <div className="btn-container">
-                      <button
-                        className="btn option-btn"
-                        onClick={(e) => handleOption(e, "room", "i")}
-                      >
-                        +
-                      </button>
-                      {option.room}
-                      <button
-                        className="btn option-btn"
-                        onClick={(e) => handleOption(e, "room", "d")}
-                      >
-                        -
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
+                Search
+              </button>
             </div>
-            <button className="btn s-btn" onClick={(e) => handleSearch()}>
-              Search
-            </button>
-          </div>
+          </form>
         </>
       </div>
     </div>

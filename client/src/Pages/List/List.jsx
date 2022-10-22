@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Nav from "../../Components/Nav/Nav";
 import Menu from "../../Components/Menu/Menu";
 import "./list.css";
@@ -14,14 +14,15 @@ import useFetch from "../../hooks/useFetch";
 
 function List() {
   const [openDate, setOpenDate] = useState(false);
-  const [date, setDate] = useState([
+  const [listDate, setDate] = useState([
     {
       startDate: new Date(),
       endDate: new Date(),
       key: "selection",
     },
   ]);
-  const { city, dates, options } = useContext(SearchContext);
+
+  const { city, dates, options, dispatch } = useContext(SearchContext);
   const [min, setMin] = useState(null);
   const [max, setMax] = useState(null);
   const [destination, setDestination] = useState(city);
@@ -32,6 +33,18 @@ function List() {
     }`
   );
   console.log(data);
+
+  const handleDateChange = async (item) => {
+    await setDate([item.selection]);
+    dispatch({
+      type: "NEW_SEARCH",
+      payload: {
+        city: destination,
+        dates: listDate,
+        options: options,
+      },
+    });
+  };
   return (
     <>
       <Nav />
@@ -68,9 +81,11 @@ function List() {
             {openDate && (
               <DateRange
                 editableDateInputs={true}
-                onChange={(item) => setDate([item.selection])}
+                onChange={(item) => {
+                  handleDateChange(item);
+                }}
                 moveRangeOnFirstSelection={false}
-                ranges={dates}
+                ranges={listDate}
                 className=""
               />
             )}
@@ -102,8 +117,10 @@ function List() {
           <div className="hotel-list">
             {loading ? (
               <p>Loading</p>
-            ) : (
+            ) : data.length > 0 ? (
               data?.map((hotel) => <SearchItem hotel={hotel} />)
+            ) : (
+              <p>No hotels available at this place</p>
             )}
           </div>
         </div>
