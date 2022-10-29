@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { MdCancel } from "react-icons/md";
 import useFetch from "../../hooks/useFetch";
 import "./reserve.css";
-import SearchContext from "../../context/SearchContext";
+import { SearchContext } from "../../context/SearchContext";
 function Reserve({ setShowModel, id }) {
   const { loading, data, error } = useFetch(`/hotel/rooms/${id}`);
   const [selectedRoom, setSelectedRoom] = useState([]);
@@ -17,8 +17,16 @@ function Reserve({ setShowModel, id }) {
         : selectedRoom.filter((item) => item != value)
     );
   };
-
-  console.log(selectedRoom);
+  const getDateInRange = (startDate, endDate) => {
+    const date = new Date(startDate.getTime());
+    let dates = [];
+    while (date <= endDate) {
+      dates.push(new Date(date).getTime());
+      date.setDate(date.getDate() + 1);
+    }
+    return dates;
+  };
+  console.log(getDateInRange(dates[0].startDate, dates[0].endDate));
   return (
     <div className="r-container">
       {data.length > 0 ? (
