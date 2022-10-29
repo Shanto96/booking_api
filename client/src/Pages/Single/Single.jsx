@@ -51,7 +51,9 @@ function Single() {
     if (user) {
       setShowModel(true);
     } else {
-      navigate("/login");
+      setShowModel(true);
+
+      //navigate("/login");
     }
   };
 
