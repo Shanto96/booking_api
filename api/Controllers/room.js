@@ -36,8 +36,8 @@ export const updateRoom = async (req, res) => {
 
 export const readRoom = async (req, res) => {
   try {
-    const Room = await Room.findById(req.params.id);
-    res.status(200).json(Room);
+    const room = await Room.findById(req.params.id);
+    res.status(200).json(room);
   } catch (error) {
     res.status(500).json({ error });
     console.log({ error });

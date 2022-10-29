@@ -11,6 +11,7 @@ import { format } from "date-fns";
 import Menu from "../Menu/Menu";
 import { SearchContext } from "../../context/SearchContext";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 function Header() {
   const [openDate, setOpenDate] = useState(false);
   const [destination, setDestination] = useState(undefined);
@@ -41,6 +42,8 @@ function Header() {
       };
     });
   };
+  const { user } = useContext(AuthContext);
+
   const navigate = useNavigate();
   const handleSearch = () => {
     if (destination.length > 0) {
@@ -63,7 +66,7 @@ function Header() {
             Get rewarded for your travels - unlock instant saving of 10% or more
             with a free booking account
           </span>
-          <button className="btn h-btn">Sign in / Register</button>
+          {!user && <button className="btn h-btn">Sign in / Register</button>}
           <form>
             <div className="form-container">
               <div>

@@ -16,15 +16,25 @@ import {
   MdOutlineArrowForwardIos,
   MdCancel,
 } from "react-icons/md";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { SearchContext } from "../../context/SearchContext";
+import { AuthContext } from "../../context/AuthContext";
+import Reserve from "../../Components/Reserve/Reserve";
 
 function Single() {
+  const [showModel, setShowModel] = useState(false);
+
   const params = useParams();
+  const location = useLocation();
   const { loading, data, error, reFetch } = useFetch(
     `/hotel/find/${params.id}`
   );
+  const id = location.pathname.split("/")[2];
+
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const { dates } = useContext(SearchContext);
   const MILISECONDS_PER_DAY = 1000 * 24 * 60 * 60;
   const dayDifferent = (date1, date2) => {
@@ -36,6 +46,15 @@ function Single() {
   const photos = [Room1, Room2, Room3, Room4, Room5, Family];
   const [photoIndex, setPhotoIndex] = useState(0);
   const [openSlider, setOpenSlider] = useState(false);
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (user) {
+      setShowModel(true);
+    } else {
+      navigate("/login");
+    }
+  };
+
   return (
     <div>
       <Nav />
@@ -44,7 +63,6 @@ function Single() {
           <Menu />
         </div>
       </div>
-
       <div className="container">
         <div className="s-top">
           <div className="t-left">
@@ -58,7 +76,9 @@ function Single() {
             </span>
           </div>
           <div className="t-right">
-            <button className="btn s-btn">Reserver or Book Now</button>
+            <button className="btn s-btn" onClick={(e) => handleClick(e)}>
+              Reserver or Book Now
+            </button>
           </div>
         </div>
         <div className="photo-gallery">
@@ -153,10 +173,13 @@ function Single() {
             <span>
               <span>{days * data?.cheapestPrice}</span>({days} nights)
             </span>
-            <button className="btn s-btn">Reserve or Book Now!</button>
+            <button className="btn s-btn" onClick={(e) => handleClick(e)}>
+              Reserve or Book Now!
+            </button>
           </div>
         </div>
       </div>
+      {showModel && <Reserve setShowModel={setShowModel} id={id} />}
       <Newsletter />
       <Footer />
     </div>
