@@ -18,6 +18,20 @@ export const createRoom = async (req, res, next) => {
   }
 };
 
+export const updateRoomAvailablity = async (req, res) => {
+  try {
+    await Room.updateOne(
+      { "roomNumber._id": req.params.id },
+      { $push: { "roomNumber.$.unavailableDates": req.body.dates } }
+    );
+    console.log(req.body.dates);
+
+    res.status(200).json("Room date has been added");
+  } catch (error) {
+    res.status(500).json({ error });
+    console.log({ error });
+  }
+};
 export const updateRoom = async (req, res) => {
   try {
     const updateRoom = await Room.findByIdAndUpdate(

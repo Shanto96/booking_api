@@ -3,8 +3,10 @@ import { MdCancel } from "react-icons/md";
 import useFetch from "../../hooks/useFetch";
 import "./reserve.css";
 import { SearchContext } from "../../context/SearchContext";
+import axios from "axios";
 function Reserve({ setShowModel, id }) {
   const { loading, data, error } = useFetch(`/hotel/rooms/${id}`);
+  console.log(data);
   const [selectedRoom, setSelectedRoom] = useState([]);
   const { dates } = useContext(SearchContext);
 
@@ -26,7 +28,28 @@ function Reserve({ setShowModel, id }) {
     }
     return dates;
   };
-  console.log(getDateInRange(dates[0].startDate, dates[0].endDate));
+  const allDates = getDateInRange(dates[0].startDate, dates[0].endDate);
+
+  const handleClick = async () => {
+    try {
+      await Promise.all(
+        selectedRoom.map((roomId) => {
+          const res = axios.put(`/room/availablity/${roomId}`, {
+            dates: allDates,
+          });
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const isAvailable = (roomNumber) => {
+    const isFound = roomNumber.unavailableDates.some((date) =>
+      allDates.includes(new Date(date).getTime())
+    );
+
+    return !isFound;
+  };
   return (
     <div className="r-container">
       {data.length > 0 ? (
@@ -50,6 +73,7 @@ function Reserve({ setShowModel, id }) {
                             type="checkbox"
                             value={single?._id}
                             onChange={(e) => handleSelect(e)}
+                            disabled={!isAvailable(single)}
                           />
                           &nbsp;&nbsp;
                           <label>{single?.number}</label>
@@ -66,7 +90,9 @@ function Reserve({ setShowModel, id }) {
         "No Rooms Available Now"
       )}
       <MdCancel onClick={() => setShowModel(false)} className="cancel-btn" />
-      <button className="btn s-btn">Reserve Now</button>
+      <button className="btn s-btn" onClick={(e) => handleClick(e)}>
+        Reserve Now
+      </button>
     </div>
   );
 }
