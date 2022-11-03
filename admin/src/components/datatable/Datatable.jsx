@@ -1,15 +1,17 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { userColumns, userRows } from "../../datatablesource";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
+import useFetch from "../../hooks/useFetch";
 
 const Datatable = () => {
-  const [data, setData] = useState(userRows);
+  const location = useLocation();
 
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
-  };
+  const path = location.pathname.split("/")[1];
+  const { data, loading, error, reFetch } = useFetch(`/${path}`);
+
+  const handleDelete = (id) => {};
 
   const actionColumn = [
     {
@@ -47,6 +49,7 @@ const Datatable = () => {
         columns={userColumns.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
+        getRowId={(row) => row._id}
         checkboxSelection
       />
     </div>

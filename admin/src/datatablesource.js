@@ -7,7 +7,16 @@ export const userColumns = [
     renderCell: (params) => {
       return (
         <div className="cellWithImg">
-          <img className="cellImg" src={params.row.img} alt="avatar" />
+          <img
+            className="cellImg"
+            src={
+              params.img ||
+              `https://xsgames.co/randomusers/assets/avatars/male/${Math.floor(
+                Math.random() * 90 + 10
+              )}.jpg`
+            }
+            alt="avatar"
+          />
           {params.row.username}
         </div>
       );
