@@ -27,9 +27,16 @@ function Login() {
         username: userRef.current.value,
         password: passwordRef.current.value,
       });
-
-      dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
-      navigate("/");
+      console.log(res.data);
+      if (res.data.admin) {
+        dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
+        navigate("/");
+      } else {
+        dispatch({
+          type: "LOGIN_FAILURE",
+          payload: { message: "User is not admin" },
+        });
+      }
     } catch (error) {
       dispatch({ type: "LOGIN_FAILURE", payload: error.response.data });
     }
