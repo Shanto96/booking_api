@@ -16,6 +16,19 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    country: {
+      type: String,
+    },
+    city: {
+      type: String,
+    },
+    phone: {
+      type: String,
+    },
+    img: {
+      type: String,
+      default: "https://i.pravatar.cc/300",
+    },
     isAdmin: {
       type: Boolean,
       default: false,

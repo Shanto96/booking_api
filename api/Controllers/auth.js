@@ -5,9 +5,9 @@ import jwt from "jsonwebtoken";
 export const register = async (req, res, next) => {
   const salt = bcrypt.genSaltSync(10);
   const hash = bcrypt.hashSync(req.body.password, salt);
+  let { password, ...info } = req.body;
   const newUser = new User({
-    username: req.body.username,
-    email: req.body.email,
+    ...info,
     password: hash,
   });
   try {
