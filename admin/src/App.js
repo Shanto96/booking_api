@@ -9,7 +9,7 @@ import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/AuthContext";
-import { userColumns, hotelColumns } from "./datatablesource.js";
+import { userColumns, hotelColumns, roomColumns } from "./datatablesource.js";
 function App() {
   const { darkMode } = useContext(DarkModeContext);
   const { user } = useContext(AuthContext);
@@ -68,6 +68,32 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <List column={hotelColumns} title="Hotel" />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path=":productId"
+                element={
+                  <ProtectedRoute>
+                    <Single />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="new"
+                element={
+                  <ProtectedRoute>
+                    <New inputs={productInputs} title="Add New Product" />
+                  </ProtectedRoute>
+                }
+              />
+            </Route>{" "}
+            <Route path="room">
+              <Route
+                index
+                element={
+                  <ProtectedRoute>
+                    <List column={roomColumns} title="Hotel" />
                   </ProtectedRoute>
                 }
               />
