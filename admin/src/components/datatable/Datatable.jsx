@@ -2,16 +2,32 @@ import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { userColumns, userRows } from "../../datatablesource";
 import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
+import axios from "axios";
 
-const Datatable = () => {
+const Datatable = ({ column, title }) => {
   const location = useLocation();
 
   const path = location.pathname.split("/")[1];
+  const [list, setList] = useState([]);
   const { data, loading, error, reFetch } = useFetch(`/${path}`);
 
-  const handleDelete = (id) => {};
+  useEffect(() => {
+    setList(data);
+    console.log(data);
+  }, [data]);
+
+  const handleDelete = async (e, id) => {
+    e.preventDefault();
+    console.log(id);
+    try {
+      await axios.delete(`${path}/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+    setList(list.filter((item) => item._id !== id));
+  };
 
   const actionColumn = [
     {
@@ -26,7 +42,7 @@ const Datatable = () => {
             </Link>
             <div
               className="deleteButton"
-              onClick={() => handleDelete(params.row.id)}
+              onClick={(e) => handleDelete(e, params.row._id)}
             >
               Delete
             </div>
@@ -38,15 +54,15 @@ const Datatable = () => {
   return (
     <div className="datatable">
       <div className="datatableTitle">
-        Add New User
+        Add New {title}
         <Link to="/users/new" className="link">
           Add New
         </Link>
       </div>
       <DataGrid
         className="datagrid"
-        rows={data}
-        columns={userColumns.concat(actionColumn)}
+        rows={list}
+        columns={column.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
         getRowId={(row) => row._id}

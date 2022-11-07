@@ -1,7 +1,7 @@
 import { createContext, useReducer, useEffect } from "react";
 
 const INITIAL_STATE = {
-  user: null,
+  user: null || localStorage.getItem("user"),
   loading: false,
   error: null,
 };
