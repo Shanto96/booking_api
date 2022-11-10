@@ -66,6 +66,7 @@ export const hotelColumns = [
   { field: "name", headerName: "Name", width: 250 },
   { field: "desc", headerName: "Description", width: 350 },
   { field: "rating", headerName: "Rating", width: 250 },
+  { field: "city", headerName: "City", width: 250 },
 ];
 export const roomColumns = [
   { field: "_id", headerName: "ID", width: 200 },

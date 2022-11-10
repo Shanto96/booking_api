@@ -51,11 +51,12 @@ const Datatable = ({ column, title }) => {
       },
     },
   ];
+  console.log(path);
   return (
     <div className="datatable">
       <div className="datatableTitle">
         Add New {title}
-        <Link to="/users/new" className="link">
+        <Link to={`/${path}/new`} className="link">
           Add New
         </Link>
       </div>

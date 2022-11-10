@@ -5,7 +5,7 @@ import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUpload
 import { useState, useRef } from "react";
 import axios from "axios";
 
-const New = ({ inputs, title }) => {
+const NewRoom = ({ inputs, title }) => {
   const [file, setFile] = useState("");
   const userNameRef = useRef();
   const emailRef = useRef();
@@ -110,7 +110,7 @@ const New = ({ inputs, title }) => {
               <div className="formInput">
                 <label> Password</label>
                 <input
-                  type="password"
+                  type="text"
                   placeholder="Password"
                   required
                   ref={passwordRef}
@@ -119,7 +119,7 @@ const New = ({ inputs, title }) => {
               <div className="formInput">
                 <label>Re Enter Password</label>
                 <input
-                  type="password"
+                  type="text"
                   placeholder="Password Again"
                   required
                   ref={password2Ref}
@@ -134,4 +134,4 @@ const New = ({ inputs, title }) => {
   );
 };
 
-export default New;
+export default NewRoom;
