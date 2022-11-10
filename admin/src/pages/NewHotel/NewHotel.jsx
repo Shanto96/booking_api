@@ -47,15 +47,38 @@ const NewHotel = ({ inputs, title }) => {
       rating: 4,
       featuredRef: featured,
       title: titleRef?.current?.value,
+      room: room,
+      photos: null,
     };
     try {
+      const list = await Promise.all(
+        Object.values(files).map(async (file) => {
+          const formData = new FormData();
+          formData.append("file", file);
+          formData.append("upload_preset", "kibriaUpload");
+          formData.append("api_key", `${process.env.REACT_APP_CLOUD}`);
+          const imgRes = await axios.post(
+            "https://api.cloudinary.com/v1_1/dvwcs0jga/image/upload",
+            formData
+          );
+          return imgRes.data.url;
+        })
+      );
+      console.log(list);
+      info.photos = list;
       const res = await axios.post("/hotel", info);
-      console.log(res);
     } catch (error) {
       console.log(error);
     }
   };
-  console.log(files);
+  const handleSelect = (e) => {
+    const value = Array.from(
+      e.target.selectedOptions,
+      (option) => option.value
+    );
+    setRoom(value);
+  };
+
   return (
     <div className="new">
       <Sidebar />
@@ -153,7 +176,7 @@ const NewHotel = ({ inputs, title }) => {
               </div>
               <div className="formInput">
                 <label> Rooms</label>
-                <select multiple>
+                <select multiple onChange={(e) => handleSelect(e)}>
                   {rooms.map((room) => (
                     <option value={room?._id}>{room?.name}</option>
                   ))}
