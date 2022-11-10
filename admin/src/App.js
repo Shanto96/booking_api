@@ -93,7 +93,7 @@ function App() {
                 index
                 element={
                   <ProtectedRoute>
-                    <List column={roomColumns} title="Hotel" />
+                    <List column={roomColumns} title="Room" />
                   </ProtectedRoute>
                 }
               />

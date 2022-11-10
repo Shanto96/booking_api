@@ -10,7 +10,7 @@ export const userColumns = [
           <img
             className="cellImg"
             src={
-              params.img ||
+              params.row.img ||
               `https://xsgames.co/randomusers/assets/avatars/male/${Math.floor(
                 Math.random() * 90 + 10
               )}.jpg`

@@ -2,10 +2,47 @@ import "./new.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import axios from "axios";
 
 const New = ({ inputs, title }) => {
   const [file, setFile] = useState("");
+  const userNameRef = useRef();
+  const emailRef = useRef();
+  const countryRef = useRef();
+  const cityRef = useRef();
+  const phoneRef = useRef();
+  const passwordRef = useRef();
+  const password2Ref = useRef();
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "kibriaUpload");
+    data.append("api_key", `${process.env.REACT_APP_CLOUD}`);
+    let info = {
+      username: userNameRef?.current?.value,
+      email: emailRef?.current?.value,
+      country: countryRef?.current?.value,
+      city: cityRef?.current?.value,
+      phone: phoneRef?.current?.value,
+      password: passwordRef?.current?.value,
+      img: "",
+    };
+    try {
+      const imgRes = await axios.post(
+        "https://api.cloudinary.com/v1_1/dvwcs0jga/image/upload",
+        data
+      );
+
+      info.img = imgRes?.data?.url;
+      const res = await axios.post("/auth", info);
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="new">
@@ -35,18 +72,60 @@ const New = ({ inputs, title }) => {
                 <input
                   type="file"
                   id="file"
+                  required
                   onChange={(e) => setFile(e.target.files[0])}
                   style={{ display: "none" }}
                 />
               </div>
-
-              {inputs.map((input) => (
-                <div className="formInput" key={input.id}>
-                  <label>{input.label}</label>
-                  <input type={input.type} placeholder={input.placeholder} />
-                </div>
-              ))}
-              <button>Send</button>
+              <div className="formInput">
+                <label> Username</label>
+                <input
+                  type="text"
+                  placeholder="User Name"
+                  required
+                  ref={userNameRef}
+                />
+              </div>
+              <div className="formInput">
+                <label> Email</label>
+                <input
+                  type="email"
+                  placeholder="Email"
+                  required
+                  ref={emailRef}
+                />
+              </div>
+              <div className="formInput">
+                <label> Country</label>
+                <input type="text" placeholder="Country" ref={countryRef} />
+              </div>
+              <div className="formInput">
+                <label> City</label>
+                <input type="text" placeholder="City" ref={cityRef} />
+              </div>
+              <div className="formInput">
+                <label> Phone</label>
+                <input type="text" placeholder="Phone" ref={phoneRef} />
+              </div>{" "}
+              <div className="formInput">
+                <label> Password</label>
+                <input
+                  type="text"
+                  placeholder="Password"
+                  required
+                  ref={passwordRef}
+                />
+              </div>{" "}
+              <div className="formInput">
+                <label>Re Enter Password</label>
+                <input
+                  type="text"
+                  placeholder="Password Again"
+                  required
+                  ref={password2Ref}
+                />
+              </div>{" "}
+              <button onClick={(e) => handleClick(e)}>Send</button>
             </form>
           </div>
         </div>

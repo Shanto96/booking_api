@@ -27,9 +27,6 @@ const userSchema = new mongoose.Schema(
     },
     img: {
       type: String,
-      default: `https://xsgames.co/randomusers/assets/avatars/male/${Math.floor(
-        Math.random() * 90 + 10
-      )}.jpg`,
     },
     isAdmin: {
       type: Boolean,
