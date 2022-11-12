@@ -4,40 +4,55 @@ import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState, useRef } from "react";
 import axios from "axios";
+import useFetch from "../../hooks/useFetch";
 
 const NewRoom = ({ inputs, title }) => {
-  const [file, setFile] = useState("");
-  const userNameRef = useRef();
-  const emailRef = useRef();
-  const countryRef = useRef();
-  const cityRef = useRef();
-  const phoneRef = useRef();
-  const passwordRef = useRef();
-  const password2Ref = useRef();
+  const [files, setFiles] = useState("");
+  const nameRef = useRef();
+  const typeRef = useRef();
+  const descRef = useRef();
+  const priceRef = useRef();
+  const titleRef = useRef();
+  const roomNumberRef = useRef();
+  const maxPersonRef = useRef();
+  const [hotelId, sethotelId] = useState(null);
+  const { data, loading, error } = useFetch("/hotel");
 
   const handleClick = async (e) => {
     e.preventDefault();
-    const data = new FormData();
-    data.append("file", file);
-    data.append("upload_preset", "kibriaUpload");
-    data.append("api_key", `${process.env.REACT_APP_CLOUD}`);
+    let roomList = roomNumberRef.current.value.split(",").map((room) => ({
+      number: room,
+    }));
+    console.log(roomList);
+
     let info = {
-      username: userNameRef?.current?.value,
-      email: emailRef?.current?.value,
-      country: countryRef?.current?.value,
-      city: cityRef?.current?.value,
-      phone: phoneRef?.current?.value,
-      password: passwordRef?.current?.value,
-      img: "",
+      name: nameRef?.current?.value,
+      type: typeRef?.current?.value,
+      desc: descRef?.current?.value,
+      photos: null,
+      title: titleRef?.current?.value,
+      price: priceRef?.current?.value,
+      maxPerson: maxPersonRef?.current?.value,
+      roomNumber: roomList,
     };
     try {
-      const imgRes = await axios.post(
-        "https://api.cloudinary.com/v1_1/dvwcs0jga/image/upload",
-        data
+      const list = await Promise.all(
+        Object.values(files).map(async (file) => {
+          const formData = new FormData();
+          formData.append("file", file);
+          formData.append("upload_preset", "kibriaUpload");
+          formData.append("api_key", `${process.env.REACT_APP_CLOUD}`);
+          const imgRes = await axios.post(
+            "https://api.cloudinary.com/v1_1/dvwcs0jga/image/upload",
+            formData
+          );
+          return imgRes.data.url;
+        })
       );
+      info.photos = list;
 
-      info.img = imgRes?.data?.url;
-      const res = await axios.post("/auth", info);
+      const res = await axios.post(`/room/${hotelId}`, info);
+
       console.log(res.data);
     } catch (error) {
       console.log(error);
@@ -56,8 +71,8 @@ const NewRoom = ({ inputs, title }) => {
           <div className="left">
             <img
               src={
-                file
-                  ? URL.createObjectURL(file)
+                files
+                  ? URL.createObjectURL(files[0])
                   : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
               }
               alt=""
@@ -73,59 +88,74 @@ const NewRoom = ({ inputs, title }) => {
                   type="file"
                   id="file"
                   required
-                  onChange={(e) => setFile(e.target.files[0])}
+                  multiple
+                  onChange={(e) => setFiles(e.target.files)}
                   style={{ display: "none" }}
                 />
               </div>
               <div className="formInput">
-                <label> Username</label>
+                <label> Name</label>
                 <input
                   type="text"
-                  placeholder="User Name"
+                  placeholder="A master Bed"
                   required
-                  ref={userNameRef}
+                  ref={nameRef}
                 />
               </div>
               <div className="formInput">
-                <label> Email</label>
+                <label> Type</label>
                 <input
-                  type="email"
-                  placeholder="Email"
+                  type="text"
+                  placeholder="Single Room"
                   required
-                  ref={emailRef}
+                  ref={typeRef}
                 />
               </div>
               <div className="formInput">
-                <label> Country</label>
-                <input type="text" placeholder="Country" ref={countryRef} />
+                <label> Description</label>
+                <input
+                  type="text"
+                  placeholder="Awesome room with a hill view from balcony"
+                  ref={descRef}
+                />
               </div>
               <div className="formInput">
-                <label> City</label>
-                <input type="text" placeholder="City" ref={cityRef} />
+                <label> Price</label>
+                <input type="Number" placeholder="250$" ref={priceRef} />
               </div>
               <div className="formInput">
-                <label> Phone</label>
-                <input type="text" placeholder="Phone" ref={phoneRef} />
+                <label> Title</label>
+                <input type="text" placeholder="A deluxe Room" ref={titleRef} />
               </div>{" "}
               <div className="formInput">
-                <label> Password</label>
+                <label> Room Number</label>
                 <input
                   type="text"
-                  placeholder="Password"
+                  placeholder="Enter room numbers by separating comma"
                   required
-                  ref={passwordRef}
+                  ref={roomNumberRef}
                 />
               </div>{" "}
               <div className="formInput">
-                <label>Re Enter Password</label>
+                <label>Maximum Person</label>
                 <input
-                  type="text"
+                  type="Number"
                   placeholder="Password Again"
                   required
-                  ref={password2Ref}
+                  ref={maxPersonRef}
                 />
               </div>{" "}
-              <button onClick={(e) => handleClick(e)}>Send</button>
+              <div className="formInput">
+                <label> Hotels</label>
+                <select onChange={(e) => sethotelId(e.target.value)}>
+                  {data?.map((hotel) => (
+                    <option value={hotel?._id}>{hotel?.name}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="formInput">
+                <button onClick={(e) => handleClick(e)}>Send</button>
+              </div>
             </form>
           </div>
         </div>
