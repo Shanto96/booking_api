@@ -12,6 +12,9 @@ import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/AuthContext";
 import { userColumns, hotelColumns, roomColumns } from "./datatablesource.js";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   const { darkMode } = useContext(DarkModeContext);
   const { user } = useContext(AuthContext);
@@ -26,6 +29,7 @@ function App() {
 
   return (
     <div className={darkMode ? "app dark" : "app"}>
+      <ToastContainer />
       <BrowserRouter>
         <Routes>
           <Route path="/">
