@@ -75,7 +75,17 @@ const NewHotel = ({ inputs, title }) => {
         render: "New Hotel Created",
         type: "success",
         isLoading: false,
+        autoClose: 7000,
       });
+      nameRef.current.value = "";
+      setType(null);
+      addressRef.current.value = "";
+      cityRef.current.value = "";
+      distanceRef.current.value = "";
+      descRef.current.value = "";
+      priceRef.current.value = "";
+      setFeatured(null);
+      titleRef.current.value = "";
     } catch (error) {
       console.log(error);
     }
