@@ -4,6 +4,7 @@ import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState, useRef } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const New = ({ inputs, title }) => {
   const [file, setFile] = useState("");
@@ -17,30 +18,51 @@ const New = ({ inputs, title }) => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    const data = new FormData();
-    data.append("file", file);
-    data.append("upload_preset", "kibriaUpload");
-    data.append("api_key", `${process.env.REACT_APP_CLOUD}`);
-    let info = {
-      username: userNameRef?.current?.value,
-      email: emailRef?.current?.value,
-      country: countryRef?.current?.value,
-      city: cityRef?.current?.value,
-      phone: phoneRef?.current?.value,
-      password: passwordRef?.current?.value,
-      img: "",
-    };
-    try {
-      const imgRes = await axios.post(
-        "https://api.cloudinary.com/v1_1/dvwcs0jga/image/upload",
-        data
-      );
+    if (passwordRef.current.value === password2Ref.current.value) {
+      const data = new FormData();
+      data.append("file", file);
+      data.append("upload_preset", "kibriaUpload");
+      data.append("api_key", `${process.env.REACT_APP_CLOUD}`);
+      let info = {
+        username: userNameRef?.current?.value,
+        email: emailRef?.current?.value,
+        country: countryRef?.current?.value,
+        city: cityRef?.current?.value,
+        phone: phoneRef?.current?.value,
+        password: passwordRef?.current?.value,
+        img: "",
+      };
+      try {
+        const id = toast.loading("User is Creating");
+        const imgRes = await axios.post(
+          "https://api.cloudinary.com/v1_1/dvwcs0jga/image/upload",
+          data
+        );
 
-      info.img = imgRes?.data?.url;
-      const res = await axios.post("/auth", info);
-      console.log(res.data);
-    } catch (error) {
-      console.log(error);
+        info.img = imgRes?.data?.url;
+        const res = await axios.post("/auth", info);
+        toast.update(id, {
+          render: "New user Created",
+          type: "success",
+          isLoading: false,
+          autoClose: 7000,
+        });
+
+        userNameRef.current.value = "";
+        emailRef.current.value = "";
+        countryRef.current.value = "";
+        cityRef.current.value = "";
+        phoneRef.current.value = "";
+        passwordRef.current.value = "";
+        password2Ref.current.value = "";
+        setFiles("");
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      toast.warn("Password didn't matched ", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
   };
 
