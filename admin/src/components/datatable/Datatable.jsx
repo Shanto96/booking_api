@@ -15,6 +15,7 @@ const Datatable = ({ column, title }) => {
   const path = location.pathname.split("/")[1];
   const [list, setList] = useState([]);
   const { data, loading, error, reFetch } = useFetch(`/${path}`);
+  const [deleteId, setDeleteId] = useState(null);
 
   useEffect(() => {
     setList(data);
@@ -23,17 +24,19 @@ const Datatable = ({ column, title }) => {
 
   const handleDelete = async (e, id) => {
     e.preventDefault();
-    console.log(id);
+
     try {
-      await axios.delete(`${path}/${id}`);
+      console.log(deleteId);
+      await axios.delete(`${path}/${deleteId}`);
       handleClose();
       toast.warn(`${title} deleted!`, { position: toast.POSITION.TOP_RIGHT });
     } catch (error) {
       console.log(error);
     }
-    setList(list.filter((item) => item._id !== id));
+    setList(list.filter((item) => item._id !== deleteId));
   };
   const handleClick = (event) => {
+    console.log("clicked");
     setAnchorEl(event.currentTarget);
   };
 
@@ -83,7 +86,11 @@ const Datatable = ({ column, title }) => {
             <div
               className="deleteButton"
               aria-describedby={id}
-              onClick={handleClick}
+              onClick={(e) => {
+                setDeleteId(params.row._id);
+                console.log(params.row._id);
+                handleClick(e);
+              }}
             >
               Delete
             </div>

@@ -5,6 +5,7 @@ import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUpload
 import { useState, useRef, useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const NewHotel = ({ inputs, title }) => {
   const [files, setFiles] = useState("");
@@ -50,7 +51,9 @@ const NewHotel = ({ inputs, title }) => {
       room: room,
       photos: null,
     };
+
     try {
+      const id = toast.loading("Hotel is Creating");
       const list = await Promise.all(
         Object.values(files).map(async (file) => {
           const formData = new FormData();
@@ -66,7 +69,13 @@ const NewHotel = ({ inputs, title }) => {
       );
       console.log(list);
       info.photos = list;
+      console.log(info);
       const res = await axios.post("/hotel", info);
+      toast.update(id, {
+        render: "New Hotel Created",
+        type: "success",
+        isLoading: false,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -99,7 +108,7 @@ const NewHotel = ({ inputs, title }) => {
             />
           </div>
           <div className="right">
-            <form>
+            <form onSubmit={(e) => handleClick(e)}>
               <div className="formInput">
                 <label htmlFor="file">
                   Image: <DriveFolderUploadOutlinedIcon className="icon" />
@@ -183,7 +192,7 @@ const NewHotel = ({ inputs, title }) => {
                 </select>
               </div>
               <div className="formInput">
-                <button onClick={(e) => handleClick(e)}>Send</button>
+                <button type="submit">Send</button>
               </div>
             </form>
           </div>
