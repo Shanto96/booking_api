@@ -52,4 +52,7 @@
     flex-direction: column;
     justify-content: center;
   }
+  .f-bottom {
+    flex-direction: column;
+  }
 }
