@@ -14,7 +14,6 @@ function Nav() {
             <button className="btn">Log Out </button>
           ) : (
             <>
-              <button className="btn">Register</button>
               <button className="btn">Log In</button>
               <BsList className="d-sm pointer" size={30} />
             </>

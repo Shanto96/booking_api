@@ -132,4 +132,26 @@
   .d-none {
     display: none !important;
   }
+  .form-container {
+    flex-direction: column;
+    padding: 0rem;
+    align-items: start;
+    gap: 0.5rem;
+    height: auto;
+    padding: 0.5rem;
+    width: 90%;
+    margin: 0 10%;
+  }
+  .form-container > div {
+    padding-bottom: 5px;
+    width: 100%;
+    border-bottom: 2px solid #f0b65249;
+  }
+
+  .sm-form-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
 }
