@@ -13,3 +13,32 @@
 .blue {
   background: var(--appBlue);
 }
+.d-sm {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .nav {
+    min-width: unset;
+  }
+  .n-right {
+    height: 2rem;
+  }
+  .logo {
+    font-size: 1.5rem;
+  }
+  .nav {
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem 0rem;
+  }
+  .d-sm {
+    display: block;
+  }
+  .header {
+    padding: 1rem;
+  }
+  .container {
+    padding: 0 1rem;
+  }
+}

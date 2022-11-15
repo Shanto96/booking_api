@@ -55,7 +55,7 @@ const New = ({ inputs, title }) => {
         phoneRef.current.value = "";
         passwordRef.current.value = "";
         password2Ref.current.value = "";
-        setFiles("");
+        setFile("");
       } catch (error) {
         console.log(error);
       }

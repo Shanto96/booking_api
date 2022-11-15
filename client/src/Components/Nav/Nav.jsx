@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import "./nav.css";
+import { BsList } from "react-icons/bs";
 
 function Nav() {
   const { user } = useContext(AuthContext);
@@ -15,6 +16,7 @@ function Nav() {
             <>
               <button className="btn">Register</button>
               <button className="btn">Log In</button>
+              <BsList className="d-sm pointer" size={30} />
             </>
           )}
         </div>

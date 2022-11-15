@@ -59,6 +59,14 @@ export const userColumns = [
       );
     },
   },
+  {
+    field: "createdAt",
+    headerName: "Created Date",
+    width: 250,
+    renderCell: (params) => {
+      return new Date(params.row.createdAt).toDateString();
+    },
+  },
 ];
 
 export const hotelColumns = [
@@ -67,11 +75,27 @@ export const hotelColumns = [
   { field: "desc", headerName: "Description", width: 350 },
   { field: "rating", headerName: "Rating", width: 250 },
   { field: "city", headerName: "City", width: 250 },
+  {
+    field: "createdAt",
+    headerName: "Created Date",
+    width: 250,
+    renderCell: (params) => {
+      return new Date(params.row.createdAt).toDateString();
+    },
+  },
 ];
 export const roomColumns = [
   { field: "_id", headerName: "ID", width: 200 },
   { field: "name", headerName: "Name", width: 250 },
-  { field: "desc", headerName: "Description", width: 350 },
-  { field: "price", headerName: "Price", width: 250 },
+  { field: "desc", headerName: "Description", width: 250 },
+  { field: "price", headerName: "Price$", width: 80 },
   { field: "title", headerName: "Title", width: 250 },
+  {
+    field: "createdAt",
+    headerName: "Created Date",
+    width: 250,
+    renderCell: (params) => {
+      return new Date(params.row.createdAt).toDateString();
+    },
+  },
 ];

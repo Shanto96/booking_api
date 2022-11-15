@@ -5,6 +5,7 @@ import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUpload
 import { useState, useRef } from "react";
 import axios from "axios";
 import useFetch from "../../hooks/useFetch";
+import { toast } from "react-toastify";
 
 const NewRoom = ({ inputs, title }) => {
   const [files, setFiles] = useState("");
@@ -36,6 +37,7 @@ const NewRoom = ({ inputs, title }) => {
       roomNumber: roomList,
     };
     try {
+      const id = toast.loading("Room is Creating");
       const list = await Promise.all(
         Object.values(files).map(async (file) => {
           const formData = new FormData();
@@ -54,6 +56,21 @@ const NewRoom = ({ inputs, title }) => {
       const res = await axios.post(`/room/${hotelId}`, info);
 
       console.log(res.data);
+      toast.update(id, {
+        render: "New Room Created",
+        type: "success",
+        isLoading: false,
+        autoClose: 7000,
+      });
+
+      nameRef.current.value = "";
+      typeRef.current.value = "";
+      descRef.current.value = "";
+      priceRef.current.value = "";
+      titleRef.current.value = "";
+      roomNumberRef.current.value = "";
+      maxPersonRef.current.value = "";
+      setFiles(null);
     } catch (error) {
       console.log(error);
     }

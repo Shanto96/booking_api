@@ -124,3 +124,12 @@
   color: #fff;
   border-radius: 4px;
 }
+
+@media only screen and (max-width: 768px) {
+  .header > ul {
+    flex-direction: column;
+  }
+  .d-none {
+    display: none !important;
+  }
+}

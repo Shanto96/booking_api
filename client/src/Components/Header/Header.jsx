@@ -59,7 +59,7 @@ function Header() {
   return (
     <div className="blue container">
       <div className="header">
-        <Menu />
+        <Menu className="d-none" />
         <>
           <h2>A lifetime of Discounts? It's Genius</h2>
           <span>

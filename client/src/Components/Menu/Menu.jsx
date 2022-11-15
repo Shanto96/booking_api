@@ -6,7 +6,7 @@ import { BsCalendar3 } from "react-icons/bs";
 
 function Menu() {
   return (
-    <ul>
+    <ul className="d-none">
       <li>
         {" "}
         <BiHotel /> Stays
