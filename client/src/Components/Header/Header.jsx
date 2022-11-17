@@ -12,7 +12,7 @@ import Menu from "../Menu/Menu";
 import { SearchContext } from "../../context/SearchContext";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-function Header() {
+function Header({ mobileMenu, setMobileMenu }) {
   const [openDate, setOpenDate] = useState(false);
   const [destination, setDestination] = useState(undefined);
   const [date, setDate] = useState([
@@ -54,12 +54,13 @@ function Header() {
       navigate("/hotels");
     }
   };
+  console.log("mobile menu is", mobileMenu);
 
   const { dispatch } = useContext(SearchContext);
   return (
     <div className="blue container">
       <div className="header">
-        <Menu className="d-none" />
+        <Menu mobileMenu={mobileMenu} />
         <>
           <h2>A lifetime of Discounts? It's Genius</h2>
           <span>
@@ -68,7 +69,7 @@ function Header() {
           </span>
           {!user && <button className="btn h-btn">Sign in / Register</button>}
           <form>
-            <div className="d-sm sm-form-container">
+            <div className="sm-form-container">
               <div className="form-container">
                 <div>
                   <FaBed />

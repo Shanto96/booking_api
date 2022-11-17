@@ -3,8 +3,9 @@ import { AuthContext } from "../../context/AuthContext";
 import "./nav.css";
 import { BsList } from "react-icons/bs";
 
-function Nav() {
+function Nav({ mobileMenu, setMobileMenu }) {
   const { user } = useContext(AuthContext);
+  console.log(mobileMenu);
   return (
     <div className="blue container">
       <div className="nav">
@@ -15,7 +16,11 @@ function Nav() {
           ) : (
             <>
               <button className="btn">Log In</button>
-              <BsList className="d-sm pointer" size={30} />
+              <BsList
+                className="d-sm pointer"
+                size={30}
+                onClick={() => setMobileMenu(!mobileMenu)}
+              />
             </>
           )}
         </div>

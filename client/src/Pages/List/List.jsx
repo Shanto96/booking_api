@@ -28,7 +28,7 @@ function List() {
   const [destination, setDestination] = useState(city);
 
   const { data, loading, error, reFetch } = useFetch(
-    `/hotel/find?city=${destination.toLowerCase()}&min=${min || 0}&max=${
+    `/hotel/find?city=${destination?.toLowerCase()}&min=${min || 0}&max=${
       max || 999
     }`
   );
@@ -73,10 +73,12 @@ function List() {
             >
               <BsCalendar3 />
               &nbsp;&nbsp;&nbsp;
-              {`${format(dates[0].startDate, "dd-MM-yyyy")} To ${format(
-                dates[0].endDate,
-                "dd-MM-yyyy"
-              )} `}
+              {dates[0]
+                ? `${format(dates[0].startDate, "dd-MM-yyyy")} To ${format(
+                    dates[0].endDate,
+                    "dd-MM-yyyy"
+                  )} `
+                : ""}
             </div>
             {openDate && (
               <DateRange

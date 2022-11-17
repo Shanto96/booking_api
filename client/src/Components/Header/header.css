@@ -147,6 +147,9 @@
     width: 100%;
     border-bottom: 2px solid #f0b65249;
   }
+  .mobile-menu {
+    display: block;
+  }
 
   .sm-form-container {
     display: flex;
@@ -154,4 +157,6 @@
     align-items: center;
     justify-content: center;
   }
+}
+@media screen and (max-width: 1079px) and (min-width: 769px) {
 }

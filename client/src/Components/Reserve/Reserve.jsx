@@ -22,15 +22,15 @@ function Reserve({ setShowModel, id }) {
     );
   };
   const getDateInRange = (startDate, endDate) => {
-    const date = new Date(startDate.getTime());
+    const date = new Date(startDate?.getTime());
     let dates = [];
     while (date <= endDate) {
-      dates.push(new Date(date).getTime());
-      date.setDate(date.getDate() + 1);
+      dates.push(new Date(date)?.getTime());
+      date.setDate(date?.getDate() + 1);
     }
     return dates;
   };
-  const allDates = getDateInRange(dates[0].startDate, dates[0].endDate);
+  const allDates = getDateInRange(dates[0]?.startDate, dates[0]?.endDate);
 
   const handleClick = async () => {
     setReserving(true);

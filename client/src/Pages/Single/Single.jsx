@@ -38,11 +38,11 @@ function Single() {
   const { dates } = useContext(SearchContext);
   const MILISECONDS_PER_DAY = 1000 * 24 * 60 * 60;
   const dayDifferent = (date1, date2) => {
-    const timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    const timeDiff = Math.abs(date2?.getTime() - date1?.getTime());
     const dateDiff = Math.ceil(timeDiff / MILISECONDS_PER_DAY);
     return dateDiff;
   };
-  const days = dayDifferent(dates[0].endDate, dates[0].startDate);
+  const days = dayDifferent(dates[0]?.endDate, dates[0]?.startDate);
   const photos = [Room1, Room2, Room3, Room4, Room5, Family];
   const [photoIndex, setPhotoIndex] = useState(0);
   const [openSlider, setOpenSlider] = useState(false);
@@ -165,13 +165,14 @@ function Single() {
             <span>{data?.desc}</span>
           </div>
           <div className="price">
-            <span>Perfect for a {days}-night stay!</span>
+            <span>Perfect for a {days ? days : ""}-night stay!</span>
             <span>
               Located in the real heart of Colorado, this property has an
               excellent location score of 9.81!
             </span>
             <span>
-              <span>{days * data?.cheapestPrice}</span>({days} nights)
+              <span>{days ? days * data?.cheapestPrice : ""}</span>(
+              {days ? days : ""} nights)
             </span>
             <button className="btn s-btn" onClick={(e) => handleClick(e)}>
               Reserve or Book Now!
