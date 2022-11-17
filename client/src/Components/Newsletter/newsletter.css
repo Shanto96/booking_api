@@ -32,3 +32,18 @@ form {
   font-weight: bold;
   padding: 10px;
 }
+@media only screen and (max-width: 768px) {
+  .newsletter {
+    padding: 2rem;
+  }
+  .newsletter-form-container {
+    flex-direction: column;
+  }
+  form {
+    flex-direction: column;
+  }
+
+  .newsletter-form-container button {
+    width: 100%;
+  }
+}

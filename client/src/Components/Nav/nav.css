@@ -13,3 +13,61 @@
 .blue {
   background: var(--appBlue);
 }
+.d-sm {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .nav {
+    min-width: unset;
+  }
+  .n-right {
+    height: 2rem;
+  }
+  .logo {
+    font-size: 1.5rem;
+  }
+  .nav {
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem 0rem;
+  }
+  .d-sm {
+    display: block;
+  }
+  .header {
+    padding: 1rem;
+  }
+  .container {
+    padding: 0 1rem;
+  }
+}
+/* all responsive css for mideuam devices */
+@media screen and (max-width: 1079px) and (min-width: 769px) {
+  .nav {
+    min-width: unset;
+    width: -webkit-fill-available;
+    padding-left: 1rem;
+  }
+  .form-container {
+    gap: 1.5rem;
+  }
+  .sm-form-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+  .photo-gallery {
+    justify-content: center;
+  }
+  .r-container {
+    width: 50%;
+  }
+  .room-container {
+    width: auto !important;
+  }
+  .r-number {
+    width: 30px;
+    flex-wrap: wrap;
+  }
+}
