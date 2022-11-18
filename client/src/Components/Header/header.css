@@ -124,3 +124,39 @@
   color: #fff;
   border-radius: 4px;
 }
+
+@media only screen and (max-width: 768px) {
+  .header > ul {
+    flex-direction: column;
+  }
+  .d-none {
+    display: none !important;
+  }
+  .form-container {
+    flex-direction: column;
+    padding: 0rem;
+    align-items: start;
+    gap: 0.5rem;
+    height: auto;
+    padding: 0.5rem;
+    width: 90%;
+    margin: 0 10%;
+  }
+  .form-container > div {
+    padding-bottom: 5px;
+    width: 100%;
+    border-bottom: 2px solid #f0b65249;
+  }
+  .mobile-menu {
+    display: block;
+  }
+
+  .sm-form-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 1079px) and (min-width: 769px) {
+}

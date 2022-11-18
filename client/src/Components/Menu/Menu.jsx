@@ -4,9 +4,9 @@ import { FaPlaneDeparture, FaUserAlt, FaBed } from "react-icons/fa";
 import { AiFillCar } from "react-icons/ai";
 import { BsCalendar3 } from "react-icons/bs";
 
-function Menu() {
+function Menu({ mobileMenu }) {
   return (
-    <ul>
+    <ul className={mobileMenu ? "mobile-menu " : " d-none "}>
       <li>
         {" "}
         <BiHotel /> Stays

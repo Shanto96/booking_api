@@ -21,6 +21,9 @@ const roomSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    maxPerson: {
+      type: Number,
+    },
 
     title: {
       type: String,

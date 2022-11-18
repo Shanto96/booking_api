@@ -1,0 +1,64 @@
+.r-container {
+  position: absolute;
+  background: white;
+  top: 50%;
+  left: 50%;
+  padding: 2rem;
+  border-radius: 0.45rem;
+  transform: translate(-50%, -50%);
+}
+
+.r-heading {
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 2rem;
+  display: block;
+}
+
+.room-container {
+  display: flex;
+  gap: 1rem;
+  align-items: start;
+  justify-content: space-between;
+  width: 50rem;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.39);
+  padding: 2rem 0;
+}
+.r-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.r-number {
+  display: flex;
+  gap: 3rem;
+}
+
+.rn-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.rn-container > * {
+  display: block;
+}
+
+.rn-container form {
+  display: flex;
+  align-items: center;
+  gap: 0rem;
+  justify-content: center;
+}
+
+.cancel-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--appBlue);
+}

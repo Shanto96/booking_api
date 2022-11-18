@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Nav from "../../Components/Nav/Nav";
 import Header from "../../Components/Header/Header";
 import Featured from "../../Components/Featured/Featured";
@@ -9,10 +9,12 @@ import Footer from "../../Components/Footer/Footer";
 import "./home.css";
 
 function Home() {
+  const [mobileMenu, setMobileMenu] = useState(false);
+  console.log(mobileMenu);
   return (
     <div>
-      <Nav />
-      <Header />
+      <Nav mobileMenu={mobileMenu} setMobileMenu={setMobileMenu} />
+      <Header mobileMenu={mobileMenu} setMobileMenu={setMobileMenu} />
 
       <div className="container">
         <div className="home-container">
